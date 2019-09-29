@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVPsnake", "PVPsnake.csproj", "{6A64E2DB-6376-41DA-9F7B-51BB382CFE9E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEF03107-75D5-43A2-9A75-73A43EA6A6BD}"
+	ProjectSection(SolutionItems) = preProject
+		Shader1.hlsl = Shader1.hlsl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

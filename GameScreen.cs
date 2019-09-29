@@ -15,6 +15,7 @@ namespace SnakeGame
             InitializeComponent();
 
             snakeP1 = new List<SnakeSegment>();
+            snakeP2 = new List<SnakeSegment>();
 
             food = new SnakeSegment(); //creating a single Circle class called food
 
@@ -50,38 +51,38 @@ namespace SnakeGame
             // allow commands to be executed as the game is still on
             else
             {
-                if (Input.KeyPress(Keys.Right) && SettingsP1.direction != DirectionsP1.Left)
+                if (Input.KeyPress(Keys.Right) && SettingsP1.p1Directions != DirectionsP1.Left)
                 {
-                    SettingsP1.direction = DirectionsP1.Right;
+                    SettingsP1.p1Directions = DirectionsP1.Right;
                 }
-                else if (Input.KeyPress(Keys.Left) && SettingsP1.direction != DirectionsP1.Right)
+                else if (Input.KeyPress(Keys.Left) && SettingsP1.p1Directions != DirectionsP1.Right)
                 {
-                    SettingsP1.direction = DirectionsP1.Left;
+                    SettingsP1.p1Directions = DirectionsP1.Left;
                 }
-                else if (Input.KeyPress(Keys.Up) && SettingsP1.direction != DirectionsP1.Down)
+                else if (Input.KeyPress(Keys.Up) && SettingsP1.p1Directions != DirectionsP1.Down)
                 {
-                    SettingsP1.direction = DirectionsP1.Up;
+                    SettingsP1.p1Directions = DirectionsP1.Up;
                 }
-                else if (Input.KeyPress(Keys.Down) && SettingsP1.direction != DirectionsP1.Up)
+                else if (Input.KeyPress(Keys.Down) && SettingsP1.p1Directions != DirectionsP1.Up)
                 {
-                    SettingsP1.direction = DirectionsP1.Down;
+                    SettingsP1.p1Directions = DirectionsP1.Down;
                 }
 
-                if (Input.KeyPress(Keys.D) && SettingsP2.direction != DirectionsP2.A)
+                if (Input.KeyPress(Keys.D) && SettingsP2.p2Directions != DirectionsP2.A)
                 {
-                    SettingsP2.direction = DirectionsP2.D;
+                    SettingsP2.p2Directions = DirectionsP2.D;
                 }
-                else if (Input.KeyPress(Keys.A) && SettingsP2.direction != DirectionsP2.D)
+                else if (Input.KeyPress(Keys.A) && SettingsP2.p2Directions != DirectionsP2.D)
                 {
-                    SettingsP2.direction = DirectionsP2.A;
+                    SettingsP2.p2Directions = DirectionsP2.A;
                 }
-                else if (Input.KeyPress(Keys.W) && SettingsP2.direction != DirectionsP2.S)
+                else if (Input.KeyPress(Keys.W) && SettingsP2.p2Directions != DirectionsP2.S)
                 {
-                    SettingsP2.direction = DirectionsP2.W;
+                    SettingsP2.p2Directions = DirectionsP2.W;
                 }
-                else if (Input.KeyPress(Keys.S) && SettingsP2.direction != DirectionsP2.W)
+                else if (Input.KeyPress(Keys.S) && SettingsP2.p2Directions != DirectionsP2.W)
                 {
-                    SettingsP2.direction = DirectionsP2.S;
+                    SettingsP2.p2Directions = DirectionsP2.S;
                 }
 
                 movePlayer(); //run move player function
@@ -100,7 +101,7 @@ namespace SnakeGame
                 if (i == 0)
                 {
                     //move rest of the body according to which way the head is moving
-                    switch (SettingsP1.direction)
+                    switch (SettingsP1.p1Directions)
                     {
                         case DirectionsP1.Left:
                             snakeP1[i].X--;
@@ -175,7 +176,7 @@ namespace SnakeGame
                 if (i == 0)
                 {
 
-                    switch (SettingsP2.direction)
+                    switch (SettingsP2.p2Directions)
                     {
                         case DirectionsP2.A:
                             snakeP2[i].X--;
@@ -256,7 +257,6 @@ namespace SnakeGame
             SnakeSegment head2 = new SnakeSegment { X = 5, Y = 10 }; //create a new head for the snakeP1
             snakeP1.Add(head); //add the gead to the snakeP1 array
             snakeP2.Add(head2);
-            label2.Text = SettingsP1.Score.ToString();
             generateFood();
         }
 
@@ -283,7 +283,6 @@ namespace SnakeGame
 
             snakeP1.Add(body);
             SettingsP1.Score += SettingsP1.Points;
-            label2.Text = SettingsP1.Score.ToString();
             generateFood();
 
         }
@@ -410,11 +409,6 @@ namespace SnakeGame
 
 
             }
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
 
         }
     }
