@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SnakeGame
 {
     public partial class GameScreen : Form
     {
-        private List<SnakeSegment> Snake = new List<SnakeSegment>(); //creating a list array for the snake
-        private List<SnakeSegment> Snake2 = new List<SnakeSegment>(); //creating a list array for the snake
-        private SnakeSegment food = new SnakeSegment(); //creating a single Circle class called food
+        private List<SnakeSegment> snakeP1, snakeP2;
+        private SnakeSegment food;
         private Boolean IsGameJustStarted { get; set; }
         public GameScreen()
         {
             InitializeComponent();
+
+            snakeP1 = new List<SnakeSegment>();
+
+            food = new SnakeSegment(); //creating a single Circle class called food
 
             new SettingsP1(); //linking the Settings Class to this Form+
             new SettingsP2(); //linking the Settings Class to this Form
@@ -44,19 +42,14 @@ namespace SnakeGame
 
                 if (Input.KeyPress(Keys.Enter))
                 {
-
                     IsGameJustStarted = false;
                     startGame();
                 }
 
             }
+            // allow commands to be executed as the game is still on
             else
             {
-                //if the game is not over then the following commands will be executed 
-
-                // below the actions will probe the keys being pressed by the player 
-                //and more accordingly
-
                 if (Input.KeyPress(Keys.Right) && SettingsP1.direction != DirectionsP1.Left)
                 {
                     SettingsP1.direction = DirectionsP1.Right;
@@ -100,64 +93,64 @@ namespace SnakeGame
         private void movePlayer()
         {
 
-            // the main loop for the snake head and parts
-            for (int i = Snake.Count - 1 ; i >= 0; i--)
+            // the main loop for the snakeP1 head and parts
+            for (int i = snakeP1.Count - 1 ; i >= 0; i--)
             {
-                // if the snake head is active
+                // if the snakeP1 head is active
                 if (i == 0)
                 {
                     //move rest of the body according to which way the head is moving
                     switch (SettingsP1.direction)
                     {
                         case DirectionsP1.Left:
-                            Snake[i].X--;
+                            snakeP1[i].X--;
                             break;
                         case DirectionsP1.Right:
-                            Snake[i].X++;
+                            snakeP1[i].X++;
                             break;
                         case DirectionsP1.Up:
-                            Snake[i].Y--;
+                            snakeP1[i].Y--;
                             break;
                         case DirectionsP1.Down:
-                            Snake[i].Y++;
+                            snakeP1[i].Y++;
                             break;
                     }
 
 
-                    //restrict the snake from living the canvas
+                    //restrict the snakeP1 from living the canvas
                     int maxXpos = pbCanvas.Size.Width / SettingsP1.Width;
                     int maxYpos = pbCanvas.Size.Height / SettingsP1.Height;
 
                     if (
-                        Snake[i].X < 0 || Snake[i].Y < 0 ||
-                        Snake[i].X > maxXpos || Snake[i].Y > maxYpos
+                        snakeP1[i].X < 0 || snakeP1[i].Y < 0 ||
+                        snakeP1[i].X > maxXpos || snakeP1[i].Y > maxYpos
 
                         )
                     {
-                        //end the game is snake either reaches edge of the canvas
+                        //end the game is snakeP1 either reaches edge of the canvas
                         die(1);
                     }
                     //detect collision with the body
-                    //this loop will check if the snake had an collisione with other body parts
-                    for (int j = 1; j < Snake.Count; j++)
+                    //this loop will check if the snakeP1 had an collisione with other body parts
+                    for (int j = 1; j < snakeP1.Count; j++)
                     {
-                        if (Snake[i].X == Snake[j].X && Snake[i].Y == Snake[j].Y)
+                        if (snakeP1[i].X == snakeP1[j].X && snakeP1[i].Y == snakeP1[j].Y)
                         {
                             //if so we run the die function
                             die(1);
                         }
                     }
-                    //detect collision between snake head and food
-                    if (Snake[0].X == food.X && Snake[0].Y == food.Y)
+                    //detect collision between snakeP1 head and food
+                    if (snakeP1[0].X == food.X && snakeP1[0].Y == food.Y)
                     {
                         //if so we run the eat function
-                        eat(Snake);
+                        eat(snakeP1);
                     }
                     //collision between the 2 snakes
-                    for (int j = 0; j < Snake2.Count; j++)
+                    for (int j = 0; j < snakeP2.Count; j++)
                     {
-                        if (Snake.Count > Snake2.Count && Snake.Count >= 5)
-                        if (Snake[i].X == Snake2[j].X && Snake[i].Y == Snake2[j].Y)
+                        if (snakeP1.Count > snakeP2.Count && snakeP1.Count >= 5)
+                        if (snakeP1[i].X == snakeP2[j].X && snakeP1[i].Y == snakeP2[j].Y)
                         {
                             //if so we run the die function
                             dieBySnake();
@@ -169,70 +162,70 @@ namespace SnakeGame
                 }
                 else
                 {
-                    //if there are no collision the we continue moving the snake and its parts
-                    Snake[i].X = Snake[i - 1].X;
-                    Snake[i].Y = Snake[i - 1].Y;
+                    //if there are no collision the we continue moving the snakeP1 and its parts
+                    snakeP1[i].X = snakeP1[i - 1].X;
+                    snakeP1[i].Y = snakeP1[i - 1].Y;
 
                 }
             }
 
-            for (int i = Snake2.Count - 1; i >= 0; i--)
+            for (int i = snakeP2.Count - 1; i >= 0; i--)
             {
-                // if the snake head is active
+                // if the snakeP1 head is active
                 if (i == 0)
                 {
 
                     switch (SettingsP2.direction)
                     {
                         case DirectionsP2.A:
-                            Snake2[i].X--;
+                            snakeP2[i].X--;
                             break;
                         case DirectionsP2.D:
-                            Snake2[i].X++;
+                            snakeP2[i].X++;
                             break;
                         case DirectionsP2.W:
-                            Snake2[i].Y--;
+                            snakeP2[i].Y--;
                             break;
                         case DirectionsP2.S:
-                            Snake2[i].Y++;
+                            snakeP2[i].Y++;
                             break;
                     }
 
-                    //restrict the snake from living the canvas
+                    //restrict the snakeP1 from living the canvas
                     int maxXpos = pbCanvas.Size.Width / SettingsP1.Width;
                     int maxYpos = pbCanvas.Size.Height / SettingsP1.Height;
 
                     if (
 
-                        Snake2[i].X < 0 || Snake2[i].Y < 0 ||
-                        Snake2[i].X > maxXpos || Snake2[i].Y > maxYpos
+                        snakeP2[i].X < 0 || snakeP2[i].Y < 0 ||
+                        snakeP2[i].X > maxXpos || snakeP2[i].Y > maxYpos
                         )
                     {
-                        //end the game is snake either reaches edge of the canvas
+                        //end the game is snakeP1 either reaches edge of the canvas
                         die(2);
                     }
                     //detect collision with the body
-                    //this loop will check if the snake had an collisione with other body parts
-                    for (int j = 1; j < Snake2.Count; j++)
+                    //this loop will check if the snakeP1 had an collisione with other body parts
+                    for (int j = 1; j < snakeP2.Count; j++)
                     {
-                        if (Snake2[i].X == Snake2[j].X && Snake2[i].Y == Snake2[j].Y)
+                        if (snakeP2[i].X == snakeP2[j].X && snakeP2[i].Y == snakeP2[j].Y)
                         {
                             //if so we run the die function
                             die(2);
                         }
                     }
 
-                    //detect collision between snake head and food
-                    if (Snake2[0].X == food.X && Snake2[0].Y == food.Y)
+                    //detect collision between snakeP1 head and food
+                    if (snakeP2[0].X == food.X && snakeP2[0].Y == food.Y)
                     {
-                        eat(Snake2);
+                        eat(snakeP2);
                     }
                     
                     //collision between the 2 snakes
-                    for (int j = 0; j < Snake.Count; j++)
+                    for (int j = 0; j < snakeP1.Count; j++)
                     {
-                        if (Snake2.Count > Snake.Count && Snake2.Count >= 5)
-                        if (Snake2[i].X == Snake[j].X && Snake2[i].Y == Snake[j].Y)
+                        if (snakeP2.Count > snakeP1.Count && snakeP2.Count >= 5)
+                        if (snakeP2[i].X == snakeP1[j].X && snakeP2[i].Y == snakeP1[j].Y)
                         {
                             //if so we run the die function
                             dieBySnake();
@@ -243,16 +236,11 @@ namespace SnakeGame
                 }
                 else
                 {
-                    //if there are no collision the we continue moving the snake and its parts
-                    Snake2[i].X = Snake2[i - 1].X;
-                    Snake2[i].Y = Snake2[i - 1].Y;
+                    //if there are no collision the we continue moving the snakeP1 and its parts
+                    snakeP2[i].X = snakeP2[i - 1].X;
+                    snakeP2[i].Y = snakeP2[i - 1].Y;
                 }
             }
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void startGame()
@@ -262,12 +250,12 @@ namespace SnakeGame
             label3.Visible = false; //set label 3 to invisible
             new SettingsP1(); // create a new istance of settings
             new SettingsP2(); // create a new istance of settings
-            Snake.Clear(); //clear all snake parts
-            Snake2.Clear(); //clear all snake parts
-            SnakeSegment head = new SnakeSegment { X = 10, Y = 5 }; //create a new head for the snake
-            SnakeSegment head2 = new SnakeSegment { X = 5, Y = 10 }; //create a new head for the snake
-            Snake.Add(head); //add the gead to the snake array
-            Snake2.Add(head2);
+            snakeP1.Clear(); //clear all snakeP1 parts
+            snakeP2.Clear(); //clear all snakeP1 parts
+            SnakeSegment head = new SnakeSegment { X = 10, Y = 5 }; //create a new head for the snakeP1
+            SnakeSegment head2 = new SnakeSegment { X = 5, Y = 10 }; //create a new head for the snakeP1
+            snakeP1.Add(head); //add the gead to the snakeP1 array
+            snakeP2.Add(head2);
             label2.Text = SettingsP1.Score.ToString();
             generateFood();
         }
@@ -283,17 +271,17 @@ namespace SnakeGame
             // create a new food with a random x and y
         }
 
-        private void eat(List<SnakeSegment> Snake)
+        private void eat(List<SnakeSegment> snakeP1)
         {
             //add a segment to the body
             SnakeSegment body = new SnakeSegment
             {
-                X = Snake[Snake.Count - 1].X,
-                Y = Snake[Snake.Count - 1].Y,
+                X = snakeP1[snakeP1.Count - 1].X,
+                Y = snakeP1[snakeP1.Count - 1].Y,
 
             };
 
-            Snake.Add(body);
+            snakeP1.Add(body);
             SettingsP1.Score += SettingsP1.Points;
             label2.Text = SettingsP1.Score.ToString();
             generateFood();
@@ -317,7 +305,7 @@ namespace SnakeGame
         private void dieBySnake()
         {
             //change the game over Boolean to true
-            if (Snake.Count > Snake2.Count)
+            if (snakeP1.Count > snakeP2.Count)
             {
                 SettingsP2.GameOver = true;
             }
@@ -343,7 +331,7 @@ namespace SnakeGame
 
         private void updateGraphics(object sender, PaintEventArgs e)
         {
-            //this is where we will see the snake and its parts moving
+            //this is where we will see the snakeP1 and its parts moving
 
             Graphics canvas = e.Graphics; // create a new graphic class called canvas
             if (IsGameJustStarted != false)
@@ -362,30 +350,30 @@ namespace SnakeGame
             {
                 // if the game is not over then  we do the following
 
-                Brush snakeColour; //create a new brush called snake colour
+                Brush snakeColour; //create a new brush called snakeP1 colour
 
-                Brush snakeColour2; //create a new brush called snake colour
+                Brush snakeColour2; //create a new brush called snakeP1 colour
 
-                //run a loop to check the snake parts
-                for (int i = 0; i < Snake.Count; i++)
+                //run a loop to check the snakeP1 parts
+                for (int i = 0; i < snakeP1.Count; i++)
                 {
                     snakeColour = Brushes.Blue;
 
-                    //draw snake body and head
-                    canvas.FillEllipse(snakeColour, new Rectangle(Snake[i].X * SettingsP1.Width, Snake[i].Y * SettingsP1.Height, SettingsP1.Width, SettingsP1.Height));
+                    //draw snakeP1 body and head
+                    canvas.FillEllipse(snakeColour, new Rectangle(snakeP1[i].X * SettingsP1.Width, snakeP1[i].Y * SettingsP1.Height, SettingsP1.Width, SettingsP1.Height));
 
 
                     //draw food
                     canvas.FillEllipse(Brushes.Red, new Rectangle(food.X * SettingsP1.Width, food.Y * SettingsP1.Height, SettingsP1.Width, SettingsP1.Height));
                 }
-                for (int i = 0; i < Snake2.Count; i++)
+                for (int i = 0; i < snakeP2.Count; i++)
                 {
 
                     snakeColour2 = Brushes.Green;
 
 
-                    //draw snake body and head
-                    canvas.FillEllipse(snakeColour2, new Rectangle(Snake2[i].X * SettingsP2.Width, Snake2[i].Y * SettingsP2.Height, SettingsP2.Width, SettingsP2.Height));
+                    //draw snakeP1 body and head
+                    canvas.FillEllipse(snakeColour2, new Rectangle(snakeP2[i].X * SettingsP2.Width, snakeP2[i].Y * SettingsP2.Height, SettingsP2.Width, SettingsP2.Height));
 
                 }
 
@@ -425,22 +413,7 @@ namespace SnakeGame
 
         }
 
-        private void gameTimer_Tick(object sender, EventArgs e)
-        {
-
-        }
-
         private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
         {
 
         }
