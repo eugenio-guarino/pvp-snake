@@ -51,38 +51,38 @@ namespace SnakeGame
             // allow commands to be executed as the game is still on
             else
             {
-                if (Input.KeyPress(Keys.Right) && SettingsP1.p1Directions != DirectionsP1.Left)
+                if (Input.KeyPress(Keys.Right) && SettingsP1.P1Directions != DirectionsP1.Left)
                 {
-                    SettingsP1.p1Directions = DirectionsP1.Right;
+                    SettingsP1.P1Directions = DirectionsP1.Right;
                 }
-                else if (Input.KeyPress(Keys.Left) && SettingsP1.p1Directions != DirectionsP1.Right)
+                else if (Input.KeyPress(Keys.Left) && SettingsP1.P1Directions != DirectionsP1.Right)
                 {
-                    SettingsP1.p1Directions = DirectionsP1.Left;
+                    SettingsP1.P1Directions = DirectionsP1.Left;
                 }
-                else if (Input.KeyPress(Keys.Up) && SettingsP1.p1Directions != DirectionsP1.Down)
+                else if (Input.KeyPress(Keys.Up) && SettingsP1.P1Directions != DirectionsP1.Down)
                 {
-                    SettingsP1.p1Directions = DirectionsP1.Up;
+                    SettingsP1.P1Directions = DirectionsP1.Up;
                 }
-                else if (Input.KeyPress(Keys.Down) && SettingsP1.p1Directions != DirectionsP1.Up)
+                else if (Input.KeyPress(Keys.Down) && SettingsP1.P1Directions != DirectionsP1.Up)
                 {
-                    SettingsP1.p1Directions = DirectionsP1.Down;
+                    SettingsP1.P1Directions = DirectionsP1.Down;
                 }
 
-                if (Input.KeyPress(Keys.D) && SettingsP2.p2Directions != DirectionsP2.A)
+                if (Input.KeyPress(Keys.D) && SettingsP2.P2Directions != DirectionsP2.A)
                 {
-                    SettingsP2.p2Directions = DirectionsP2.D;
+                    SettingsP2.P2Directions = DirectionsP2.D;
                 }
-                else if (Input.KeyPress(Keys.A) && SettingsP2.p2Directions != DirectionsP2.D)
+                else if (Input.KeyPress(Keys.A) && SettingsP2.P2Directions != DirectionsP2.D)
                 {
-                    SettingsP2.p2Directions = DirectionsP2.A;
+                    SettingsP2.P2Directions = DirectionsP2.A;
                 }
-                else if (Input.KeyPress(Keys.W) && SettingsP2.p2Directions != DirectionsP2.S)
+                else if (Input.KeyPress(Keys.W) && SettingsP2.P2Directions != DirectionsP2.S)
                 {
-                    SettingsP2.p2Directions = DirectionsP2.W;
+                    SettingsP2.P2Directions = DirectionsP2.W;
                 }
-                else if (Input.KeyPress(Keys.S) && SettingsP2.p2Directions != DirectionsP2.W)
+                else if (Input.KeyPress(Keys.S) && SettingsP2.P2Directions != DirectionsP2.W)
                 {
-                    SettingsP2.p2Directions = DirectionsP2.S;
+                    SettingsP2.P2Directions = DirectionsP2.S;
                 }
 
                 movePlayer(); //run move player function
@@ -101,7 +101,7 @@ namespace SnakeGame
                 if (i == 0)
                 {
                     //move rest of the body according to which way the head is moving
-                    switch (SettingsP1.p1Directions)
+                    switch (SettingsP1.P1Directions)
                     {
                         case DirectionsP1.Left:
                             snakeP1[i].X--;
@@ -176,7 +176,7 @@ namespace SnakeGame
                 if (i == 0)
                 {
 
-                    switch (SettingsP2.p2Directions)
+                    switch (SettingsP2.P2Directions)
                     {
                         case DirectionsP2.A:
                             snakeP2[i].X--;

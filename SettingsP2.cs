@@ -17,7 +17,7 @@ namespace SnakeGame
             Score = 0;
             Points = 100;
             GameOver = false; // set game over to false
-            p2Directions = DirectionsP2.S; // the default direction will be down
+            P2Directions = DirectionsP2.S; // the default direction will be down
 
         }
     }
