@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SnakeGame
@@ -31,6 +32,47 @@ namespace SnakeGame
             startGame();
         }
 
+
+        private async Task MoveSnake1()
+        {
+            if (Input.KeyPress(Keys.Right) && SettingsP1.P1Directions != DirectionsP1.Left)
+            {
+                SettingsP1.P1Directions = DirectionsP1.Right;
+            }
+            else if (Input.KeyPress(Keys.Left) && SettingsP1.P1Directions != DirectionsP1.Right)
+            {
+                SettingsP1.P1Directions = DirectionsP1.Left;
+            }
+            else if (Input.KeyPress(Keys.Up) && SettingsP1.P1Directions != DirectionsP1.Down)
+            {
+                SettingsP1.P1Directions = DirectionsP1.Up;
+            }
+            else if (Input.KeyPress(Keys.Down) && SettingsP1.P1Directions != DirectionsP1.Up)
+            {
+                SettingsP1.P1Directions = DirectionsP1.Down;
+            }
+        }
+
+        private async Task MoveSnake2()
+        {
+            if (Input.KeyPress(Keys.D) && SettingsP2.P2Directions != DirectionsP2.A)
+            {
+                SettingsP2.P2Directions = DirectionsP2.D;
+            }
+            else if (Input.KeyPress(Keys.A) && SettingsP2.P2Directions != DirectionsP2.D)
+            {
+                SettingsP2.P2Directions = DirectionsP2.A;
+            }
+            else if (Input.KeyPress(Keys.W) && SettingsP2.P2Directions != DirectionsP2.S)
+            {
+                SettingsP2.P2Directions = DirectionsP2.W;
+            }
+            else if (Input.KeyPress(Keys.S) && SettingsP2.P2Directions != DirectionsP2.W)
+            {
+                SettingsP2.P2Directions = DirectionsP2.S;
+            }
+        }
+
         private void updateScreen(object sender, EventArgs e)
         {
             //this is the timers update screen function
@@ -51,39 +93,10 @@ namespace SnakeGame
             // allow commands to be executed as the game is still on
             else
             {
-                if (Input.KeyPress(Keys.Right) && SettingsP1.P1Directions != DirectionsP1.Left)
-                {
-                    SettingsP1.P1Directions = DirectionsP1.Right;
-                }
-                else if (Input.KeyPress(Keys.Left) && SettingsP1.P1Directions != DirectionsP1.Right)
-                {
-                    SettingsP1.P1Directions = DirectionsP1.Left;
-                }
-                else if (Input.KeyPress(Keys.Up) && SettingsP1.P1Directions != DirectionsP1.Down)
-                {
-                    SettingsP1.P1Directions = DirectionsP1.Up;
-                }
-                else if (Input.KeyPress(Keys.Down) && SettingsP1.P1Directions != DirectionsP1.Up)
-                {
-                    SettingsP1.P1Directions = DirectionsP1.Down;
-                }
+                MoveSnake1();
+                MoveSnake2();
 
-                if (Input.KeyPress(Keys.D) && SettingsP2.P2Directions != DirectionsP2.A)
-                {
-                    SettingsP2.P2Directions = DirectionsP2.D;
-                }
-                else if (Input.KeyPress(Keys.A) && SettingsP2.P2Directions != DirectionsP2.D)
-                {
-                    SettingsP2.P2Directions = DirectionsP2.A;
-                }
-                else if (Input.KeyPress(Keys.W) && SettingsP2.P2Directions != DirectionsP2.S)
-                {
-                    SettingsP2.P2Directions = DirectionsP2.W;
-                }
-                else if (Input.KeyPress(Keys.S) && SettingsP2.P2Directions != DirectionsP2.W)
-                {
-                    SettingsP2.P2Directions = DirectionsP2.S;
-                }
+
 
                 movePlayer(); //run move player function
             }
