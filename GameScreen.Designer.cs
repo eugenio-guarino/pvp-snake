@@ -46,19 +46,19 @@
             this.pbCanvas.Size = new System.Drawing.Size(834, 514);
             this.pbCanvas.TabIndex = 0;
             this.pbCanvas.TabStop = false;
-            this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.updateGraphics);
+            this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.UpdateGraphics);
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Yellow;
-            this.label3.Location = new System.Drawing.Point(387, 305);
+            this.label3.Location = new System.Drawing.Point(151, 278);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(117, 29);
+            this.label3.Size = new System.Drawing.Size(592, 83);
             this.label3.TabIndex = 3;
-            this.label3.Text = "End Text";
+            this.label3.Text = "Some text";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // GameScreen
             // 
@@ -73,7 +73,6 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyIsUp);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
