@@ -69,8 +69,8 @@
             this.Controls.Add(this.pbCanvas);
             this.Name = "GameScreen";
             this.Text = "GameScreen";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keyIsDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyIsUp);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyIsDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyIsUp);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

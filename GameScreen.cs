@@ -51,64 +51,10 @@ namespace SnakeGame
             {
                 SettingsP1.P1Directions = DirectionsP1.Down;
             }
-        }
 
-        private async Task MoveSnake2()
-        {
-            if (Input.KeyPress(Keys.D) && SettingsP2.P2Directions != DirectionsP2.A)
-            {
-                SettingsP2.P2Directions = DirectionsP2.D;
-            }
-            else if (Input.KeyPress(Keys.A) && SettingsP2.P2Directions != DirectionsP2.D)
-            {
-                SettingsP2.P2Directions = DirectionsP2.A;
-            }
-            else if (Input.KeyPress(Keys.W) && SettingsP2.P2Directions != DirectionsP2.S)
-            {
-                SettingsP2.P2Directions = DirectionsP2.W;
-            }
-            else if (Input.KeyPress(Keys.S) && SettingsP2.P2Directions != DirectionsP2.W)
-            {
-                SettingsP2.P2Directions = DirectionsP2.S;
-            }
-        }
-
-        private void updateScreen(object sender, EventArgs e)
-        {
-            //this is the timers update screen function
-            // each tick will run this function
-
-            if (SettingsP1.GameOver == true || SettingsP2.GameOver == true)
-            {
-                //if is the Timers update screen function.
-                //each tick will run this function
-
-                if (Input.KeyPress(Keys.Enter))
-                {
-                    IsGameJustStarted = false;
-                    startGame();
-                }
-
-            }
-            // allow commands to be executed as the game is still on
-            else
-            {
-                MoveSnake1();
-                MoveSnake2();
-
-
-
-                movePlayer(); //run move player function
-            }
-            pbCanvas.Invalidate(); //refresh the picture box and update the graphics on it
-
-        }
-
-        private void movePlayer()
-        {
 
             // the main loop for the snakeP1 head and parts
-            for (int i = snakeP1.Count - 1 ; i >= 0; i--)
+            for (int i = snakeP1.Count - 1; i >= 0; i--)
             {
                 // if the snakeP1 head is active
                 if (i == 0)
@@ -142,7 +88,7 @@ namespace SnakeGame
                         )
                     {
                         //end the game is snakeP1 either reaches edge of the canvas
-                        die(1);
+                        Die(1);
                     }
                     //detect collision with the body
                     //this loop will check if the snakeP1 had an collisione with other body parts
@@ -151,24 +97,24 @@ namespace SnakeGame
                         if (snakeP1[i].X == snakeP1[j].X && snakeP1[i].Y == snakeP1[j].Y)
                         {
                             //if so we run the die function
-                            die(1);
+                            Die(1);
                         }
                     }
                     //detect collision between snakeP1 head and food
                     if (snakeP1[0].X == food.X && snakeP1[0].Y == food.Y)
                     {
                         //if so we run the eat function
-                        eat(snakeP1);
+                        Eat(snakeP1);
                     }
                     //collision between the 2 snakes
                     for (int j = 0; j < snakeP2.Count; j++)
                     {
                         if (snakeP1.Count > snakeP2.Count && snakeP1.Count >= 5)
-                        if (snakeP1[i].X == snakeP2[j].X && snakeP1[i].Y == snakeP2[j].Y)
-                        {
-                            //if so we run the die function
-                            dieBySnake();
-                        }
+                            if (snakeP1[i].X == snakeP2[j].X && snakeP1[i].Y == snakeP2[j].Y)
+                            {
+                                //if so we run the die function
+                                DieBySnake();
+                            }
                     }
 
 
@@ -181,6 +127,27 @@ namespace SnakeGame
                     snakeP1[i].Y = snakeP1[i - 1].Y;
 
                 }
+            }
+
+        }
+
+        private async Task MoveSnake2()
+        {
+            if (Input.KeyPress(Keys.D) && SettingsP2.P2Directions != DirectionsP2.A)
+            {
+                SettingsP2.P2Directions = DirectionsP2.D;
+            }
+            else if (Input.KeyPress(Keys.A) && SettingsP2.P2Directions != DirectionsP2.D)
+            {
+                SettingsP2.P2Directions = DirectionsP2.A;
+            }
+            else if (Input.KeyPress(Keys.W) && SettingsP2.P2Directions != DirectionsP2.S)
+            {
+                SettingsP2.P2Directions = DirectionsP2.W;
+            }
+            else if (Input.KeyPress(Keys.S) && SettingsP2.P2Directions != DirectionsP2.W)
+            {
+                SettingsP2.P2Directions = DirectionsP2.S;
             }
 
             for (int i = snakeP2.Count - 1; i >= 0; i--)
@@ -216,7 +183,7 @@ namespace SnakeGame
                         )
                     {
                         //end the game is snakeP1 either reaches edge of the canvas
-                        die(2);
+                        Die(2);
                     }
                     //detect collision with the body
                     //this loop will check if the snakeP1 had an collisione with other body parts
@@ -225,25 +192,25 @@ namespace SnakeGame
                         if (snakeP2[i].X == snakeP2[j].X && snakeP2[i].Y == snakeP2[j].Y)
                         {
                             //if so we run the die function
-                            die(2);
+                            Die(2);
                         }
                     }
 
                     //detect collision between snakeP1 head and food
                     if (snakeP2[0].X == food.X && snakeP2[0].Y == food.Y)
                     {
-                        eat(snakeP2);
+                        Eat(snakeP2);
                     }
-                    
+
                     //collision between the 2 snakes
                     for (int j = 0; j < snakeP1.Count; j++)
                     {
                         if (snakeP2.Count > snakeP1.Count && snakeP2.Count >= 5)
-                        if (snakeP2[i].X == snakeP1[j].X && snakeP2[i].Y == snakeP1[j].Y)
-                        {
-                            //if so we run the die function
-                            dieBySnake();
-                        }
+                            if (snakeP2[i].X == snakeP1[j].X && snakeP2[i].Y == snakeP1[j].Y)
+                            {
+                                //if so we run the die function
+                                DieBySnake();
+                            }
                     }
 
 
@@ -255,6 +222,34 @@ namespace SnakeGame
                     snakeP2[i].Y = snakeP2[i - 1].Y;
                 }
             }
+        }
+
+        private void updateScreen(object sender, EventArgs e)
+        {
+            //this is the timers update screen function
+            // each tick will run this function
+
+            if (SettingsP1.GameOver == true || SettingsP2.GameOver == true)
+            {
+                //if is the Timers update screen function.
+                //each tick will run this function
+
+                if (Input.KeyPress(Keys.Enter))
+                {
+                    IsGameJustStarted = false;
+                    startGame();
+                }
+
+            }
+            // allow commands to be executed as the game is still on
+            else
+            {
+                MoveSnake1();
+                MoveSnake2();
+
+            }
+            pbCanvas.Invalidate(); //refresh the picture box and update the graphics on it
+
         }
 
         private void startGame()
@@ -284,23 +279,23 @@ namespace SnakeGame
             // create a new food with a random x and y
         }
 
-        private void eat(List<SnakeSegment> snakeP1)
+        private void Eat(List<SnakeSegment> snake)
         {
             //add a segment to the body
             SnakeSegment body = new SnakeSegment
             {
-                X = snakeP1[snakeP1.Count - 1].X,
-                Y = snakeP1[snakeP1.Count - 1].Y,
+                X = snake[snakeP1.Count - 1].X,
+                Y = snake[snakeP1.Count - 1].Y,
 
             };
 
-            snakeP1.Add(body);
-            SettingsP1.Score += SettingsP1.Points;
+            snake.Add(body);
+
             generateFood();
 
         }
 
-        private void die(int PlayerNo)
+        private void Die(int PlayerNo)
         {
             //change the game over Boolean to true
             if (PlayerNo == 1)
@@ -314,31 +309,18 @@ namespace SnakeGame
 
         }
 
-        private void dieBySnake()
+        private void DieBySnake()
         {
             //change the game over Boolean to true
             if (snakeP1.Count > snakeP2.Count)
             {
                 SettingsP2.GameOver = true;
             }
-            else
+            else if (snakeP1.Count < snakeP2.Count)
             {
                 SettingsP1.GameOver = true;
             }
 
-        }
-
-        private void keyIsDown(object sender, KeyEventArgs e)
-        {
-            //the key down event will trigger the change state from the Input Class
-            Input.changeState(e.KeyCode, true);
-
-        }
-
-        private void keyIsUp(object sender, KeyEventArgs e)
-        {
-            //the key up event will trigger the change state from the Input class
-            Input.changeState(e.KeyCode, false);
         }
 
         private void updateGraphics(object sender, PaintEventArgs e)
@@ -424,5 +406,17 @@ namespace SnakeGame
             }
 
         }
+
+
+        private void KeyIsDown(object sender, KeyEventArgs e)
+        {
+            Input.changeState(e.KeyCode, true);
+        }
+
+        private void KeyIsUp(object sender, KeyEventArgs e)
+        {
+            Input.changeState(e.KeyCode, false);
+        }
+
     }
 }
