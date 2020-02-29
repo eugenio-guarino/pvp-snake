@@ -6,21 +6,43 @@ using System.Windows.Forms;
 
 namespace SnakeGame
 {
+    public enum Player1Buttons
+    {
+        Left,
+        Right,
+        Up,
+        Down
+    };
+
+    public enum Player2Buttons
+    {
+        A,
+        D,
+        W,
+        S
+    };
+
     public partial class GameScreen : Form
     {
         private List<SnakeSegment> snakeP1, snakeP2;
         private SnakeSegment food;
         private Boolean IsGameStarted { get; set; }
+        private List<Snake> playersList;
         public GameScreen()
         {
             InitializeComponent();
 
-            snakeP1 = new List<SnakeSegment>();
-            snakeP2 = new List<SnakeSegment>();
+            Snake player1 = new Snake(16, 16, 20, 0, 100);
+            Snake player2 = new Snake(16, 16, 20, 0, 100);
 
             food = new SnakeSegment();
-            new SettingsP1();
-            new SettingsP2();
+
+            foreach (Player player in playersList)
+            {
+                
+            }
+
+
 
             gameTimer.Interval = 1250 / SettingsP1.Speed;
             gameTimer.Tick += UpdateScreen;
